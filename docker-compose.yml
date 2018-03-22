@@ -2,11 +2,22 @@ version: '2'
 services:
   web:
     expose:
-      - "8009"
+      - "8080"
     build: tomcat/.
+    volumes:
+      - ./logs:/usr/local/tomcat/logs
+      - /Users/folivieri/src/trinetgateway/target/trinetGateway:/usr/local/tomcat/webapps/trinetGateway
+      - /Users/folivieri/src/trinet/target/TriNet:/usr/local/tomcat/webapps/TriNet
+      - ./copyContexts.sh:/opt/trinet/copyContexts.sh
+      - ./tomcat/TriNet.xml:/opt/trinet/TriNet.xml
+      - ./tomcat/trinetGateway.xml:/opt/trinet/trinetGateway.xml
   httpd:
     volumes:
       - ./logs:/var/log/apache2
+      - /Users/folivieri/src/oe/WebContent:/opt/trinet/oe/WebContent
+      - /Users/folivieri/src/newhire/WebContent:/opt/trinet/newhire/WebContent
+      - /Users/folivieri/src/trinet/WebContent:/opt/trinet/trinet/WebContent
+      - /Users/folivieri/src/hrpapps:/opt/trinet/hrpapps
     ports:
-      - 80
+      - "80:80"
     build: httpd/.
