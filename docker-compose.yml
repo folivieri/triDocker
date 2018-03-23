@@ -1,14 +1,14 @@
 version: '2'
 services:
-  web:
-    expose:
-      - "8080"
+  tomcat:
     build: tomcat/.
+    expose:
+      - "8009"
     volumes:
       - ./logs:/usr/local/tomcat/logs
       - /Users/folivieri/src/trinetgateway/target/trinetGateway:/usr/local/tomcat/webapps/trinetGateway
       - /Users/folivieri/src/trinet/target/TriNet:/usr/local/tomcat/webapps/TriNet
-  httpd:
+  apache2:
     volumes:
       - ./logs:/var/log/apache2
       - /Users/folivieri/src/oe/WebContent:/opt/trinet/oe/WebContent
